@@ -979,3 +979,13 @@ h2:hover .heading-anchor, h3:hover .heading-anchor, .heading-anchor:focus-visibl
   html:focus-within { scroll-behavior: smooth; }
   .lb-bar__fill { transition: width 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
 }
+
+/* Ko-fi floating button and popup: their iframes hold light documents. Ko-fi sets an invalid
+   color-scheme ("auto"), so the iframes inherit the dark scheme of the page and the browser paints an
+   opaque white backdrop around the button. Matching the scheme of the embedded documents keeps them
+   transparent. */
+.floatingchat-container-wrap iframe,
+.floatingchat-container-wrap-mobi iframe,
+[class^="floating-chat-kofi-popup-iframe"] iframe {
+  color-scheme: light !important;
+}
