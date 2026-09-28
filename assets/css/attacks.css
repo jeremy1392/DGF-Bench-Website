@@ -1,0 +1,206 @@
+/* ==========================================================================
+   DGF-Bench website: page styles for attacks.html only.
+   Loaded after site.css. Uses the tokens of site.css; no hard-coded colours.
+    1. Shared bits (lists, quote)     4. Attack cards
+    2. Overview and filters           5. Result cells
+    3. Family sections                6. Call to action
+   ========================================================================== */
+
+/* 1. Shared bits ------------------------------------------------------------ */
+/* Programming fonts such as Cascadia Code turn "-<" into an arrow: keep code literal. */
+code, pre, kbd, samp, .atk-quote { font-variant-ligatures: none; font-feature-settings: "calt" 0, "liga" 0; }
+/* site.css keeps the right border off every 2nd stat also in the 4-column layout; restore it. */
+@media (min-width: 880px) { .stats .stat:nth-child(2n):not(:last-child) { border-right: 1px solid var(--c-line); } }
+.atk-attrib > h3:first-child { margin-top: 0; }
+.atk-list { margin: 0; padding-left: 1.25em; display: grid; gap: var(--sp-2); color: var(--c-text-2); }
+.atk-list li::marker { color: var(--c-muted); }
+.card .atk-list { font-size: 0.9375rem; }
+.atk-callout-list { margin: 0; padding-left: 1.25em; display: grid; gap: var(--sp-2); }
+.atk-quote {
+  padding: 10px 12px; border: 1px solid var(--c-line); border-left: 3px solid var(--c-line-strong);
+  border-radius: var(--r-sm); background: var(--c-surface-2); color: var(--c-text);
+  font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.55; overflow-wrap: anywhere;
+}
+/* threat model: a coloured rule tells "can" from "cannot" at a glance */
+.atk-tm { border-top: 3px solid var(--c-line-strong); }
+.atk-tm--can { border-top-color: var(--c-low); }
+.atk-tm--cannot { border-top-color: var(--c-high); }
+
+/* 2. Overview and filters ------------------------------------------------------ */
+.atk-howto { align-items: start; margin-bottom: var(--sp-5); }
+.atk-setup { margin-top: 0; padding: var(--sp-4) var(--sp-5); border: 1px solid var(--c-line); border-radius: var(--r-md); background: var(--c-surface); }
+.atk-setup[open] > summary { margin-bottom: var(--sp-4); }
+.atk-setup .atk-list { font-size: 0.9375rem; margin-bottom: var(--sp-4); }
+.atk-heatmap .heatmap__rowhead a { font-weight: 600; text-decoration: underline; text-decoration-color: var(--c-line-strong); text-underline-offset: 0.2em; }
+.atk-heatmap .heatmap__rowhead a:hover { text-decoration-color: currentColor; }
+
+.atk-filters { margin-bottom: 0; }
+.atk-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: var(--sp-4); color: var(--c-muted); font-size: 0.875rem; }
+.atk-legend__label { font-weight: 650; color: var(--c-text-2); }
+.atk-legend__item { display: inline-flex; align-items: center; gap: 6px; margin-right: var(--sp-3); }
+
+/* Three-column reference tables become one block per row on phones. */
+@media (max-width: 639px) {
+  .atk-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .atk-stack, .atk-stack tbody, .atk-stack tr, .atk-stack th, .atk-stack td { display: block; width: 100%; }
+  .atk-stack tr { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--c-line); }
+  .atk-stack tbody tr:last-child { border-bottom: 0; }
+  .table.atk-stack th, .table.atk-stack td { padding: 0; border: 0; }
+  .table.atk-stack tbody th[scope="row"] { white-space: normal; }
+  .atk-stack td { margin-top: var(--sp-2); }
+  .atk-stack td::before { content: attr(data-label); display: block; color: var(--c-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .table.atk-stack tbody tr:hover > * { background: none; }
+}
+
+/* 3. Family sections ------------------------------------------------------------ */
+.atk-family + .atk-family { border-top: 1px solid var(--c-line); }
+.atk-family__tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-bottom: var(--sp-3); }
+.atk-family__meta { color: var(--c-muted); font-size: 0.875rem; line-height: 1.45; }
+.atk-family__head .lede { font-size: 1.0625rem; }
+/* One explicit shrinkable column: an implicit auto column grows to the widest card's min-content
+   (the table of card 20), which pushed every document-vector card past a phone screen. */
+.atk-cards { display: grid; gap: var(--sp-5); grid-template-columns: minmax(0, 1fr); }
+.atk-cards > .atk-card { min-width: 0; }
+.atk-empty { padding-block: var(--sp-7); color: var(--c-text-2); }
+.atk-empty p { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+
+/* Filtered-out items (the hidden attribute must beat display rules of .card and .section). */
+.atk-card[hidden], .atk-family[hidden], .atk-empty[hidden] { display: none !important; }
+
+/* 4. Attack cards ------------------------------------------------------------------ */
+/* No scroll-margin here: html already has scroll-padding-top (site.css), and the two would add up. */
+.atk-card { gap: var(--sp-4); }
+.atk-card.family-card--injection { --atk-soft: var(--fam-injection-soft); --atk-text: var(--fam-injection-text); }
+.atk-card.family-card--document { --atk-soft: var(--fam-document-soft); --atk-text: var(--fam-document-text); }
+.atk-card.family-card--technique { --atk-soft: var(--fam-technique-soft); --atk-text: var(--fam-technique-text); }
+.atk-card.family-card--adaptive { --atk-soft: var(--fam-adaptive-soft); --atk-text: var(--fam-adaptive-text); }
+.atk-card:target, .atk-card:has(.atk-card__title:target) { box-shadow: 0 0 0 2px var(--c-focus), var(--shadow-md); }
+
+.atk-card__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.atk-card__title { display: flex; align-items: center; gap: 12px; font-size: 1.25rem; line-height: 1.3; }
+.atk-card__num {
+  flex: none; display: inline-grid; place-items: center; min-width: 2.25rem; height: 2.25rem; padding: 0 6px;
+  border-radius: var(--r-md); background: var(--atk-soft, var(--c-surface-3)); color: var(--atk-text, var(--c-ink));
+  font-size: 1rem; font-weight: 750; font-variant-numeric: tabular-nums; letter-spacing: 0;
+}
+.atk-card__title .heading-anchor { font-size: 1rem; }
+.atk-card__tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+
+/* A card body is: the description (__main), the placement, goal and excerpt (__more, a <details>),
+   then the results (__side). From 640px the details are open and their summary is hidden, so
+   nothing is hidden on tablets and desktops; on phones attacks.js collapses them (the HTML ships
+   them open, so without JavaScript every card stays complete). From 960px: description and
+   results on the left, placement, goal and excerpt on the right. */
+.atk-card__grid { display: grid; gap: var(--sp-5); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 960px) {
+  .atk-card__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr;
+    grid-template-areas: "main more" "side more"; gap: var(--sp-5) var(--sp-6);
+  }
+  .atk-card__main { grid-area: main; }
+  .atk-card__more { grid-area: more; }
+  .atk-card__side { grid-area: side; align-self: start; }
+}
+.atk-card__main > * + * { margin-top: var(--sp-4); }
+.atk-card__desc { color: var(--c-text); }
+.atk-card__side { display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0; }
+.atk-card__more { min-width: 0; }
+.atk-card__more > .atk-dl + * { margin-top: var(--sp-4); }
+@media (min-width: 640px) { .atk-card__more > .atk-card__more-sum { display: none; } }
+@media (max-width: 639px) {
+  .atk-card__more-sum {
+    display: flex; align-items: center; gap: var(--sp-2); min-height: 44px; padding: 8px 12px;
+    border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: var(--c-surface-2);
+    color: var(--c-ink); font-size: 0.9375rem; font-weight: 650; line-height: 1.3; cursor: pointer; list-style: none;
+  }
+  .atk-card__more-sum::-webkit-details-marker { display: none; }
+  .atk-card__more-sum::after {
+    content: ""; flex: none; width: 8px; height: 8px; margin: -4px 4px 0 auto;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg);
+  }
+  .atk-card__more[open] > .atk-card__more-sum { margin-bottom: var(--sp-4); }
+  .atk-card__more[open] > .atk-card__more-sum::after { margin-top: 4px; transform: rotate(-135deg); }
+  .atk-card__more-sum:hover { border-color: var(--c-primary); }
+}
+
+/* "Back to filters": a small button pinned to the bottom right while the catalog scrolls by;
+   attacks.js shows it once the filter bar is above the screen (hidden without JavaScript,
+   where there is no filter bar). */
+.atk-backtop { position: sticky; bottom: 0; z-index: 5; height: 0; margin: 0; pointer-events: none; }
+.atk-backtop a {
+  position: absolute; right: 16px; bottom: 16px; pointer-events: auto; box-shadow: var(--shadow-md);
+  visibility: hidden; opacity: 0; transition: opacity 0.15s ease, visibility 0.15s;
+}
+.atk-backtop[data-show] a { visibility: visible; opacity: 1; }
+.atk-backtop svg { width: 16px; height: 16px; }
+.no-js .atk-backtop { display: none; }
+@media (prefers-reduced-motion: reduce) { .atk-backtop a { transition: none; } }
+
+.atk-dl { display: grid; gap: var(--sp-3); }
+.atk-dl dt { color: var(--c-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.atk-dl dt code { text-transform: none; letter-spacing: 0; font-size: 0.8125rem; }
+.atk-dl dd { margin: 2px 0 0; color: var(--c-text-2); font-size: 0.9375rem; line-height: 1.55; }
+.atk-card__links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; padding-top: var(--sp-3); border-top: 1px solid var(--c-line); font-size: 0.9375rem; }
+.atk-card__links .link-arrow { white-space: normal; }
+.atk-card__kind { color: var(--c-text-2); }
+.atk-card__kindlabel { color: var(--c-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-right: 4px; }
+
+/* excerpts: wrap long lines instead of scrolling, keep the line breaks */
+.atk-excerpt pre { padding: var(--sp-3) var(--sp-4); font-size: 0.8125rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.atk-excerpt__text { padding: var(--sp-3) var(--sp-4); color: var(--c-text-2); font-size: 0.9375rem; }
+.atk-excerpt--quote { margin: 0; padding: var(--sp-3) var(--sp-4) var(--sp-4); border: 1px solid var(--c-line); border-radius: var(--r-lg); background: var(--c-surface-2); }
+.atk-excerpt--quote figcaption { display: block; margin-bottom: var(--sp-2); }
+.atk-excerpt--quote blockquote { margin: 0; padding-left: var(--sp-4); border-left: 3px solid var(--c-line-strong); color: var(--c-text-2); font-size: 0.9375rem; }
+
+.atk-card__extra { padding-top: var(--sp-4); border-top: 1px solid var(--c-line); }
+.atk-card__extra > * + * { margin-top: var(--sp-3); }
+.atk-extra__title { color: var(--c-text-2); font-size: 0.9375rem; max-width: 72ch; }
+.atk-extra__table { max-width: 640px; }
+/* let the two count headers wrap so the table fits a phone without scrolling sideways */
+.atk-extra__table thead th.num { white-space: normal; min-width: 5.5rem; vertical-align: bottom; }
+/* 360px phones: narrower cells, and model names may wrap, so the table of card 20 fits the card */
+@media (max-width: 379px) {
+  .atk-extra__table .table th, .atk-extra__table .table td { padding-inline: 8px; }
+  .atk-extra__table thead th.num { min-width: 4rem; }
+  .atk-extra__table tbody th[scope="row"] { white-space: normal; }
+}
+@media (min-width: 960px) {
+  .atk-card__extra--split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-6); align-items: start; }
+  .atk-card__extra--split > * + * { margin-top: 0; }
+}
+
+@media (max-width: 559px) {
+  /* shell commands wrap instead of being cut at the edge (copy buttons copy the original lines) */
+  .code-block:not(.atk-excerpt) pre { padding-inline: var(--sp-4); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .atk-card { padding: var(--sp-4); }
+  .atk-card__title { font-size: 1.125rem; gap: 10px; }
+  .atk-card__num { min-width: 2rem; height: 2rem; font-size: 0.9375rem; }
+}
+
+/* 5. Result cells ------------------------------------------------------------------- */
+.atk-results__label { margin-bottom: var(--sp-2); color: var(--c-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.atk-res-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.atk-res {
+  display: flex; flex-direction: column; justify-content: center; gap: 1px; min-width: 0;
+  padding: 6px 10px; border: 1px solid var(--c-line); border-radius: var(--r-sm); background: var(--c-surface-2);
+}
+.atk-res__model { color: var(--c-muted); font-size: 0.75rem; font-weight: 600; line-height: 1.3; }
+.atk-res__value { color: var(--c-text-2); font-family: var(--font-mono); font-size: 0.9375rem; font-weight: 600; line-height: 1.35; font-variant-numeric: tabular-nums; }
+.atk-res[data-state="passed"] { background: var(--c-low-soft); border-color: var(--c-low); }
+.atk-res[data-state="passed"] .atk-res__model, .atk-res[data-state="passed"] .atk-res__value { color: var(--c-low-text); }
+.atk-res[data-state="passed"] .atk-res__value { font-weight: 800; }
+.atk-res[data-state="na"] { background: repeating-linear-gradient(45deg, var(--hatch-a) 0 5px, var(--hatch-b) 5px 6.5px); }
+.atk-res[data-state="na"] .atk-res__model, .atk-res[data-state="na"] .atk-res__value { color: var(--c-text-2); }
+.atk-res--sample { display: inline-flex; padding: 1px 8px; }
+.atk-res--sample .atk-res__value { font-size: 0.8125rem; }
+.atk-res-through { margin-top: var(--sp-2); color: var(--c-text-2); font-size: 0.9375rem; }
+.atk-res-through strong { color: var(--c-ink); }
+.atk-results__note { margin-top: var(--sp-2); color: var(--c-muted); font-size: 0.875rem; line-height: 1.5; }
+
+/* 6. Call to action ------------------------------------------------------------------ */
+.atk-cta { border-top: 3px solid var(--c-primary); }
+
+@media print {
+  .atk-legend, .atk-card__links, .atk-backtop, .atk-card__more-sum { display: none; }
+  .atk-card { break-inside: avoid; }
+}

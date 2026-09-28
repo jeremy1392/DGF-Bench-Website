@@ -1,0 +1,137 @@
+/* ==========================================================================
+   benchmark.html ("How DGF-Bench works"): page-specific additions.
+   Loaded after site.css. Colors come only from the site.css tokens.
+   ========================================================================== */
+
+/* Hero: second paragraph and the on-this-page navigation ------------------- */
+.bm-hero-note { margin-top: var(--sp-3); max-width: 68ch; color: var(--c-text-2); }
+.bm-toc { margin-top: var(--sp-6); }
+.bm-toc__title { margin: 0 0 var(--sp-2); color: var(--c-muted); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.bm-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.bm-toc a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 14px;
+  border: 1px solid var(--c-line-strong); border-radius: 999px; background: var(--c-surface);
+  color: var(--c-text-2); font-size: 0.875rem; font-weight: 600; text-decoration: none;
+}
+.bm-toc a:hover { border-color: var(--c-primary); color: var(--c-ink); }
+
+/* Code on this page: no programming ligatures, so "-<" and ">-" in identifiers
+   such as MANDATE-<case_id>-<occurrence_id> render as typed. */
+main code, main pre { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+
+/* Sub-blocks (one h3 each) inside a section. Block flow, not flex: a flex column
+   would size grid children (.split, .grid) to their max-content width on phones. */
+.bm-sub { margin-top: var(--sp-8); }
+.bm-sub:first-child { margin-top: 0; }
+.bm-sub > * + * { margin-top: var(--sp-4); }
+.bm-sub > h3 + * { margin-top: var(--sp-3); }
+.bm-sub > p, .bm-measure { max-width: 72ch; }
+@media (max-width: 639px) { .bm-sub { margin-top: var(--sp-7); } }
+
+/* Stat strip spacing under the section head */
+.bm-stats { margin-bottom: var(--sp-7); }
+/* site.css keeps border-right: 0 on every 2nd stat in the 4-column layout; restore the divider */
+@media (min-width: 880px) { .stats.bm-stats .stat:nth-child(2n):not(:last-child) { border-right: 1px solid var(--c-line); } }
+
+/* Key-value list inside a card: label column as wide as its longest label */
+@media (min-width: 720px) { .bm-kv { grid-template-columns: max-content minmax(0, 1fr); } }
+
+/* CSV excerpt: older row muted, current row highlighted */
+.bm-hl { border-radius: 2px; background: var(--c-primary-soft); box-shadow: 0 0 0 3px var(--c-primary-soft); color: var(--c-ink); }
+
+/* Authoritative record vs narrative document cards */
+.bm-card--auth { border-top: 3px solid var(--c-primary); }
+.bm-card--doc { border-top: 3px solid var(--c-line-strong); }
+.bm-card .card__eyebrow code { text-transform: none; letter-spacing: 0; font-size: 0.8125rem; }
+.bm-card ul { margin: 0; padding-left: 1.2em; color: var(--c-text-2); }
+.bm-card li + li { margin-top: 2px; }
+
+/* Routes: one panel per route (process-diagram component inside) ---------- */
+.bm-routes { display: grid; gap: var(--sp-4); }
+.bm-route { padding: var(--sp-5); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-lg); }
+.section--alt .bm-route { background: var(--c-canvas); }
+.bm-route__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1) var(--sp-4); margin-bottom: var(--sp-4); }
+.bm-route__head h3 { font-size: 1.25rem; }
+.bm-route__head p { color: var(--c-text-2); }
+.bm-route__head .route__label { margin: 0; }
+@media (max-width: 479px) { .bm-route { padding: var(--sp-4); } }
+
+/* Gate x route matrix: the phase at which each gate meets on each route */
+.bm-matrix td { position: relative; text-align: center; white-space: nowrap; vertical-align: middle; }  /* relative: keeps the .visually-hidden text inside the scroll container */
+.bm-matrix thead th:not(:first-child) { text-align: center; }
+.bm-phase { display: inline-block; padding: 0 8px; border-radius: 999px; background: var(--c-primary-soft); color: var(--c-high-text); font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; }
+.bm-off { color: var(--c-muted); }
+
+/* Let long row headers wrap on phones so the text column keeps its width */
+@media (max-width: 639px) {
+  .bm-wrap-rows tbody th[scope="row"] { white-space: normal; min-width: 7.5rem; }
+}
+.bm-ids { font-family: var(--font-mono); font-size: 0.8125rem; white-space: nowrap; }
+
+/* Phones: the three-column tables whose first two columns are short (hidden modes, evidence
+   formats) become one block per row, the row header and the short value on one line and the
+   description below, instead of a description column cut at the screen edge. The markup
+   carries explicit table roles, so the semantics survive the display change. */
+@media (max-width: 559px) {
+  .bm-stack thead { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .bm-stack, .bm-stack tbody, .bm-stack tfoot { display: block; }
+  .bm-stack tr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding: 10px 14px; border-bottom: 1px solid var(--c-line); }
+  .bm-stack tbody tr:last-child { border-bottom: 0; }
+  .bm-stack tfoot tr { border-top: 1px solid var(--c-line-strong); }
+  .table.bm-stack th, .table.bm-stack td { display: block; padding: 0; border: 0; text-align: left; white-space: normal; }
+  .bm-stack tr > :last-child { flex-basis: 100%; color: var(--c-text-2); }
+  .bm-stack tr > :last-child:empty { display: none; }
+  .bm-stack td[data-label]::after { content: " " attr(data-label); }
+  /* reference decisions: occurrence and decision on the first line, the findings below */
+  .bm-stack--mid tr > :last-child { flex-basis: auto; color: inherit; }
+  .bm-stack--mid tr > :nth-child(2) { order: 1; flex-basis: 100%; color: var(--c-text-2); }
+  /* dispositions: rank and disposition on the first line, authorization and rules on the second */
+  .bm-stack--4 tr::after { content: ""; order: 1; flex-basis: 100%; height: 0; }
+  .bm-stack--4 tr > :nth-child(n+3) { order: 2; flex-basis: auto; color: var(--c-text-2); }
+  .bm-stack--4 td[data-prefix]::before { content: attr(data-prefix) ": "; color: var(--c-muted); }
+  .bm-stack--4 td[data-prefix="Rules"] { margin-left: var(--sp-3); }
+  .table.bm-stack tbody tr:hover > * { background: none; }
+  /* Code excerpts wrap instead of being cut at the edge (the copy buttons copy the original lines). */
+  .code-block pre { padding-inline: var(--sp-4); white-space: pre-wrap; overflow-wrap: anywhere; }
+}
+
+/* Information conditions: one card each */
+.bm-cond { margin: 0; }
+.bm-cond dt { color: var(--c-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.bm-cond dd { margin: 2px 0 var(--sp-3); color: var(--c-text-2); }
+.bm-cond dd:last-child { margin-bottom: 0; }
+.bm-card--attack { border-top: 3px solid var(--c-low); }
+
+/* Tools: definition list in a panel ----------------------------------------- */
+.bm-panel { padding: var(--sp-1) var(--sp-5); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-lg); }
+.section--alt .bm-panel { background: var(--c-canvas); }
+.bm-tools { gap: 0; }
+.bm-tools dt { padding-top: var(--sp-3); border-top: 1px solid var(--c-line); }
+.bm-tools dd { margin: 0; padding: var(--sp-1) 0 var(--sp-3); }
+.bm-tools > dt:first-of-type { border-top: 0; }
+.bm-tools dt code { font-size: 0.875rem; }
+@media (min-width: 720px) {
+  .bm-tools { grid-template-columns: max-content minmax(0, 1fr); }
+  .bm-tools dt { padding-right: var(--sp-6); padding-bottom: var(--sp-3); }
+  .bm-tools dd { margin: 0; padding-top: var(--sp-3); border-top: 1px solid var(--c-line); }
+  .bm-tools > dd:first-of-type { border-top: 0; }
+}
+@media (max-width: 479px) { .bm-panel { padding-inline: var(--sp-4); } }
+
+/* Numbered check list (approval checks, attribution conditions) */
+.bm-checks { padding-left: 1.4em; max-width: 72ch; }
+.bm-checks > li + li { margin-top: var(--sp-2); }
+.bm-checks > li::marker { color: var(--c-muted); font-weight: 700; }
+
+/* Figure around an inline SVG diagram */
+.bm-figure { margin: 0; padding: var(--sp-4); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-lg); width: 100%; max-width: 400px; justify-self: center; }
+.diagram .bm-dg-code { fill: var(--c-primary); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+.section--alt .bm-figure { background: var(--c-canvas); }
+@media (max-width: 479px) { .bm-figure { padding: var(--sp-3) var(--sp-2); } .bm-figure figcaption { padding-inline: var(--sp-2); } }
+
+/* DGF score formula note */
+.bm-formula-note { margin-top: var(--sp-2); }
+
+/* Outcome-strict components */
+.bm-component .card__title { font-family: var(--font-mono); font-size: 1rem; }
+.bm-component .card__body { font-size: 0.9375rem; }

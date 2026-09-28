@@ -1,0 +1,68 @@
+/* DGF-Bench website: styles used only by results.html.
+   Everything else comes from site.css; colors are the tokens of site.css. */
+
+/* Page opening: title, then the leaderboard, then the call to action (home hero grid of site.css). */
+.results-hero .hero__intro .lede { margin-top: var(--sp-4); }
+.results-hero__fineprint { margin-top: var(--sp-3); color: var(--c-muted); font-size: 0.8125rem; line-height: 1.5; max-width: 60ch; }
+@media (min-width: 1024px) { .results-hero .hero__board { align-self: start; } }
+/* Phones: the heading and its subtitle, then the six scores right away; the small print follows the leaderboard.
+   Only the visual order changes (the fine print holds no link, so the focus order is unchanged). */
+@media (max-width: 639px) {
+  .results-hero .hero__grid { grid-template-areas: "title" "lede" "board" "fine" "actions"; row-gap: 0; }
+  .results-hero .hero__intro { display: contents; }
+  .results-hero .hero__intro > .eyebrow { display: none; }
+  .results-hero h1 { grid-area: title; }
+  .results-hero .hero__intro .lede { grid-area: lede; margin-top: var(--sp-2); font-size: 1rem; line-height: 1.5; }
+  .results-hero .hero__board { margin-top: var(--sp-4); }
+  .results-hero__fineprint { grid-area: fine; }
+  .results-hero .hero__actions { margin-top: var(--sp-5); }
+}
+
+/* Call to action: put your model on the leaderboard */
+.submit-card { gap: var(--sp-4); }
+.submit-card h2 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); }
+.submit-card .stack { align-items: flex-start; }
+.submit-card__note { color: var(--c-muted); font-size: 0.875rem; line-height: 1.5; }
+
+/* On-this-page navigation under the opening */
+.page-toc { border-bottom: 1px solid var(--c-line); background: var(--c-surface); }
+.page-toc__inner { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-2) var(--sp-4); padding-block: var(--sp-3); }
+.page-toc__title { color: var(--c-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.page-toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); }
+.page-toc a { color: var(--c-text-2); font-size: 0.875rem; font-weight: 600; text-decoration: none; }
+.page-toc a:hover { color: var(--c-primary); text-decoration: underline; }
+
+/* Stat strip: site.css keeps the right border off every 2nd stat also in the 4-column layout; restore it. */
+@media (min-width: 880px) { .stats .stat:nth-child(2n):not(:last-child) { border-right: 1px solid var(--c-line); } }
+
+/* Blocks inside a section */
+.results-block > h3 { margin-bottom: var(--sp-4); }
+.results-block > p + .table-scroll { margin-top: var(--sp-4); }
+.routes { display: grid; gap: var(--sp-5); }
+.routes__ids { display: block; margin-top: 2px; color: var(--c-muted); font-size: 0.8125rem; letter-spacing: 0; text-transform: none; font-weight: 500; }
+.routes__total { color: var(--c-text-2); }
+.table td.passed-list { min-width: 16rem; color: var(--c-text-2); white-space: normal; }
+.fixed-none { columns: 2 16rem; column-gap: var(--sp-6); }
+.fixed-none li { break-inside: avoid; }
+
+/* A finding body may hold several paragraphs and a list: div.finding__body keeps the grid of .finding. */
+div.finding__body > * + * { margin-top: var(--sp-2); }
+div.finding__body ul { margin: 0; padding-left: 1.2em; }
+div.finding__body li + li { margin-top: 4px; }
+
+/* Install chips of the call to action: a smaller command, icon-only copy buttons (they keep their aria-label). */
+.submit-card .install-chip code { font-size: 0.875rem; }
+.submit-card .install-chip .copy-btn { padding-inline: 8px; }
+.submit-card .install-chip .copy-btn__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Run settings: a narrower label column inside a half-width block */
+@media (min-width: 1024px) { .results-block .dl { grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr); } }
+@media (max-width: 479px) {
+  .submit-card { padding: var(--sp-4); }
+  .submit-card .install-chip code { font-size: 0.8125rem; }
+}
+
+/* Tables: headers allowed to wrap; the long list of passed attacks folds into a details element. */
+.table--wrap-head thead th { white-space: normal; }
+.table td.passed-list summary { cursor: pointer; color: var(--c-primary); font-weight: 600; width: max-content; }
+.table td.passed-list details p { margin-top: var(--sp-1); }

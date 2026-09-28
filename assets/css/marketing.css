@@ -1,0 +1,150 @@
+/* ==========================================================================
+   DGF-Bench website: page styles for index.html (home) only.
+   Loaded after site.css. Uses the tokens of site.css; no colour is hard-coded.
+   Sections: 1. Hero headline and results board  2. Hero stat strip
+             3. Why DGF-Bench is essential        4. Built for AI labs, who it is for
+             5. Put your model on the leaderboard 6. Help us callout
+   ========================================================================== */
+
+/* 1. Hero headline and results board ------------------------------------- */
+.hero h1 { max-width: 19ch; }
+@media (max-width: 479px) {
+  .hero h1 { font-size: 1.75rem; line-height: 1.12; max-width: none; }
+  .hero__actions .btn-row .btn { flex: 1 1 100%; }  /* the two buttons cannot share a line: same width, stacked */
+}
+
+/* The hero grid area "board" holds the heading, the leaderboard card and its fine print. */
+.hero__board { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+.board-head__title { font-size: clamp(1.25rem, 1.1rem + 0.55vw, 1.5rem); line-height: 1.25; letter-spacing: -0.012em; }
+.board-head__sub { margin-top: 4px; color: var(--c-text-2); font-size: 0.9375rem; line-height: 1.5; max-width: 62ch; }
+.board-fineprint { color: var(--c-muted); font-size: 0.8125rem; line-height: 1.5; }
+/* Two columns: a shorter top padding, a two-line subtitle and one line for the name and the OpenRouter id of every
+   model keep the six scores well above a 1440x900 fold. A long id ends in an ellipsis; the full id and provider stay
+   in its title and in the tables of results.html. The open slot row keeps its two lines. */
+@media (min-width: 1024px) {
+  .hero { padding-top: var(--sp-5); }
+  .hero__intro { padding-top: var(--sp-4); }
+  .board-head__sub { max-width: none; }
+  .leaderboard--hero .lb-row:not(.lb-row--slot) .lb-row__who { flex-wrap: nowrap; }
+  .leaderboard--hero .lb-row:not(.lb-row--slot) .lb-row__name { flex: none; }
+  .leaderboard--hero .lb-row:not(.lb-row--slot) .lb-row__meta { flex: 0 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .leaderboard--hero .lb-row:not(.lb-row--slot) .lb-row__meta code { white-space: nowrap; }
+}
+
+/* One column (phones and tablets): a short headline, then the scores right away. The claim line, the summary
+   sentence and the actions come after the leaderboard. Only the visual order changes: in the DOM, and for screen
+   readers, the claim stays right after the h1 it completes; it holds no link, so the focus order is unchanged. */
+@media (max-width: 1023px) {
+  .hero__grid { grid-template-areas: "eyebrow" "title" "board" "claim" "actions"; }
+  .hero__intro { display: contents; }
+  .hero__intro .eyebrow { grid-area: eyebrow; justify-self: start; margin-bottom: calc(var(--sp-2) - var(--sp-5)); }
+  .hero__intro h1 { grid-area: title; max-width: 24ch; }
+  .hero__claim { grid-area: claim; margin-top: 0; margin-bottom: calc(var(--sp-3) - var(--sp-5)); }
+}
+@media (max-width: 639px) {
+  .hero__grid { grid-template-areas: "title" "board" "claim" "actions"; }  /* no empty eyebrow row and gap */
+  .hero__intro .eyebrow { display: none; }
+  .board-head__sub { font-size: 0.875rem; line-height: 1.45; }
+}
+
+.hero__lede { color: var(--c-text-2); font-size: 1.0625rem; line-height: 1.6; max-width: 48ch; }
+@media (min-width: 768px) { .hero__lede { font-size: 1.125rem; } }
+.hero__actions .link-arrow { align-self: flex-start; }
+
+/* 2. Hero stat strip: two by two in the narrow hero column on wide screens. */
+.hero .stat__value { font-size: clamp(1.625rem, 1.35rem + 1vw, 2.125rem); }
+.hero .stat__label { font-size: 0.875rem; }
+/* 880-1023px: four columns in one row; site.css drops the divider after the 2nd stat, restore it. */
+@media (min-width: 880px) and (max-width: 1023px) {
+  .hero .stats .stat:nth-child(2n):not(:last-child) { border-right: 1px solid var(--c-line); }
+}
+@media (min-width: 1024px) {
+  .hero .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero .stats .stat { padding: var(--sp-4) var(--sp-5); border-right: 1px solid var(--c-line); border-bottom: 1px solid var(--c-line); }
+  .hero .stats .stat:nth-child(2n) { border-right: 0; }
+  .hero .stats .stat:nth-last-child(-n + 2) { border-bottom: 0; }
+}
+
+/* 3. Why DGF-Bench is essential: five numbered reasons (3 + 2 on wide screens). */
+.why .section__head { max-width: 820px; }
+.why-grid { display: grid; gap: var(--sp-5); grid-template-columns: minmax(0, 1fr); list-style: none; margin: 0; padding: 0; }
+@media (min-width: 720px) {
+  .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .why-grid > :last-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .why-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .why-grid > * { grid-column: span 2; }
+  .why-grid > :nth-child(n + 4) { grid-column: span 3; }
+}
+.why-grid .finding { border-top: 3px solid var(--c-primary); }
+.why-grid .finding__title { font-size: 1.1875rem; }
+.why-grid .finding__num { background: var(--c-primary); color: var(--c-on-primary); }
+
+/* Numbered cards in narrow columns: number and title on one row, text at full card width. */
+.why-grid .finding, .findings-grid .finding { grid-template-columns: auto minmax(0, 1fr); align-items: center; row-gap: var(--sp-3); }
+.why-grid .finding__num, .findings-grid .finding__num { grid-row: auto; }
+.why-grid .finding__body, .why-grid .finding__data,
+.findings-grid .finding__body, .findings-grid .finding__data { grid-column: 1 / -1; }
+.why-grid .finding__data, .findings-grid .finding__data { align-self: end; }
+
+/* "How it works" diagram: below 480px the wide version (420 units scaled to about 330px, 10px labels) gives way to
+   a stacked phone version whose labels render at 14px or more. */
+.diagram--phone { display: none; }
+.diagram--phone .dg-title { font-size: 13px; }
+.diagram--phone .dg-text { font-size: 14.5px; }
+.diagram--phone .dg-small { font-size: 14px; }
+.diagram--phone .dg-attack-text { font-size: 13px; }
+@media (max-width: 479px) {
+  .how__figure .diagram--wide { display: none; }
+  .how__figure .diagram--phone { display: block; }
+}
+
+/* 4. Built for AI labs, who it is for --------------------------------------- */
+.benefit-card .card__title { font-size: 1.125rem; }
+.benefit-card__icon, .who-card__icon {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-md);
+  background: var(--c-primary-soft); color: var(--c-high-text);
+}
+.benefit-card__icon svg, .who-card__icon svg { width: 22px; height: 22px; }
+.labs-note { margin-top: var(--sp-5); }
+.who-card { gap: var(--sp-3); }
+
+/* 5. Put your model on the leaderboard -------------------------------------- */
+.cta-panel {
+  padding: var(--sp-6); border: 1px solid var(--c-primary); border-radius: var(--r-lg);
+  background: var(--c-primary-soft); box-shadow: var(--shadow-md);
+}
+@media (min-width: 1024px) { .cta-panel { padding: var(--sp-7); } }
+@media (max-width: 639px) { .cta-panel { padding: var(--sp-5) var(--sp-4); } }
+.cta-panel .section__head { margin-bottom: 0; }
+.cta-panel .lede { color: var(--c-text); }
+/* the steps grid must not grow to the width of the longest code line (the <pre> scrolls instead) */
+.cta-panel .steps { grid-template-columns: minmax(0, 1fr); }
+.cta-panel .steps > li { min-width: 0; }
+.cta-panel .steps > li::before { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
+.cta-panel .steps > li:not(:last-child)::after { background: var(--c-primary); opacity: 0.45; }
+.cta-panel .steps p, .cta-panel .steps li li { color: var(--c-text); }
+.cta-panel .code-block { margin-top: var(--sp-3); background: var(--c-surface); }
+.cta-panel .code-block pre { --scroll-bg: var(--c-surface); }  /* covers of the scroll hint, site.css section 11 */
+.cta-panel .code-block__head { background: var(--c-surface-2); }
+.cta-panel .small { color: var(--c-text-2); }
+@media (min-width: 960px) { .cta-panel .split > .stack { position: sticky; top: calc(var(--header-h) + var(--sp-5)); } }
+.cta-send { margin: var(--sp-2) 0 0; padding-left: 1.2em; list-style: disc; }
+.cta-send li + li { margin-top: 4px; }
+.cta-mail { font-weight: 650; }
+.cta-links { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); font-size: 0.9375rem; }
+@media (max-width: 479px) { .cta-panel .btn-row .btn { width: 100%; } }
+
+/* 6. Help us callout ----------------------------------------------------------- */
+.help-callout { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-4) var(--sp-6); }
+.help-callout > div { flex: 1 1 420px; }
+.help-callout .callout__title { font-size: 1.0625rem; }
+.help-callout .btn { flex: none; }
+.callout.help-callout > * + * { margin-top: 0; }
+.help-callout > div > * + * { margin-top: var(--sp-2); }
+.section + .section.help-section { padding-top: 0; }
+
+/* Positioning line under the home h1 (owner request). */
+.hero__claim { margin-top: var(--sp-3); color: var(--c-primary); font-size: 1.1875rem; font-weight: 700; line-height: 1.4; max-width: 40ch; }
+@media (min-width: 768px) { .hero__claim { font-size: 1.3125rem; } }

@@ -1,0 +1,111 @@
+/* ==========================================================================
+   DGF-Bench website: page styles for help.html ("Help us") only.
+   Uses the tokens of site.css; no colour is hard-coded here.
+   ========================================================================== */
+
+/* Hero: text and call to action on the left, the rated models on the right. */
+.help-hero { padding-block: var(--sp-7) var(--sp-7); }
+.help-hero__grid { display: grid; gap: var(--sp-6); grid-template-columns: minmax(0, 1fr); align-items: center; }
+@media (min-width: 960px) {
+  .help-hero__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--sp-7); }
+}
+.help-hero h1 { max-width: 16ch; }
+.help-hero .lede { max-width: 60ch; }
+.help-hero .btn-row { margin-top: var(--sp-6); align-items: center; }
+@media (max-width: 639px) { .help-hero { padding-block: var(--sp-6); } }
+
+/* Large call-to-action button (Ko-fi). */
+.help-btn-lg {
+  min-height: 56px; padding: 14px 26px; gap: 10px;
+  font-size: 1.0625rem; border-radius: var(--r-md); box-shadow: var(--shadow-md);
+}
+.help-btn-lg svg { width: 20px; height: 20px; }
+@media (max-width: 479px) {
+  .help-btn-lg { width: 100%; white-space: normal; text-align: center; }
+  .help-hero .btn-row .btn { width: 100%; }
+}
+
+/* Rated models: a compact score list, then the models still to rate. */
+.help-board {
+  padding: var(--sp-5); background: var(--c-surface);
+  border: 1px solid var(--c-line); border-radius: var(--r-lg); box-shadow: var(--shadow-md);
+}
+.help-board__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-1) var(--sp-4); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--c-line); }
+.help-board__title { font-size: 1.125rem; }
+.help-board__sub { color: var(--c-muted); font-size: 0.8125rem; }
+.help-board__list { list-style: none; margin: 0; padding: 0; }
+.help-board__row {
+  display: grid; align-items: center; column-gap: var(--sp-3); row-gap: 4px;
+  grid-template-columns: minmax(0, 1fr) 3.25rem;
+  grid-template-areas: "name score" "bar score";
+  padding: 10px 0; border-bottom: 1px solid var(--c-line);
+}
+.help-board__name { grid-area: name; color: var(--c-ink); font-weight: 650; line-height: 1.3; }
+.help-board__name small { margin-left: 6px; color: var(--c-muted); font-size: 0.8125rem; font-weight: 500; }
+.help-board__bar { grid-area: bar; position: relative; height: 8px; border-radius: 3px; background: var(--c-track); overflow: hidden; }
+.help-board__bar > span { position: absolute; inset: 0 auto 0 0; width: var(--w, 0%); border-radius: 2px; background: var(--c-high); }
+.help-board__row[data-level="mid"] .help-board__bar > span { background: var(--c-mid); }
+.help-board__row[data-level="low"] .help-board__bar > span { background: var(--c-low); }
+.help-board__score { grid-area: score; justify-self: end; color: var(--c-ink); font-size: 1.375rem; font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.help-board__next { list-style: none; margin: var(--sp-3) 0 0; padding: 0; display: grid; gap: var(--sp-2); }
+.help-board__next li {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px var(--sp-3);
+  padding: 10px 12px; border: 1.5px dashed var(--c-line-strong); border-radius: var(--r-md);
+  color: var(--c-text-2); font-weight: 600; line-height: 1.3;
+}
+.help-board__next li span { color: var(--c-muted); font-size: 0.8125rem; font-weight: 500; }
+.help-board__foot { margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid var(--c-line); color: var(--c-muted); font-size: 0.875rem; line-height: 1.5; }
+.help-board__foot .link-arrow { display: inline-block; margin-top: var(--sp-1); }
+@media (max-width: 479px) { .help-board { padding: var(--sp-4); } }
+
+/* Free vs paid: two cards with ticked lists. */
+.help-card--paid { border-top: 3px solid var(--c-primary); }
+.help-card--free { border-top: 3px solid var(--c-line-strong); }
+.help-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); color: var(--c-text-2); }
+.help-list li { position: relative; padding-left: 28px; }
+.help-list li::before {
+  content: ""; position: absolute; left: 2px; top: 0.5em; width: 14px; height: 8px;
+  border-left: 2px solid var(--c-muted); border-bottom: 2px solid var(--c-muted); transform: translateY(-2px) rotate(-45deg);
+}
+.help-card--paid .help-list li::before { width: 10px; height: 10px; top: 0.55em; border: 0; border-radius: 50%; background: var(--c-primary); transform: none; }
+
+/* One rating, spelled out. */
+.help-equation {
+  margin: var(--sp-5) 0 0; padding: var(--sp-4) var(--sp-5);
+  border: 1px solid var(--c-line); border-radius: var(--r-lg); background: var(--c-surface-2);
+  text-align: center;
+}
+.help-equation__row {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--sp-2) var(--sp-3);
+  color: var(--c-ink); font-weight: 650; line-height: 1.35;
+}
+.help-equation__term { padding: 6px 12px; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: var(--c-surface); }
+.help-equation__term--result { background: var(--c-primary-soft); border-color: var(--c-primary); color: var(--c-high-text); }
+.help-equation__op { color: var(--c-muted); font-weight: 700; }
+.help-equation figcaption { margin-top: var(--sp-3); color: var(--c-muted); font-size: 0.875rem; line-height: 1.5; }
+@media (max-width: 639px) {
+  .help-equation { padding: var(--sp-4); }
+  .help-equation__row { flex-direction: column; gap: var(--sp-1); }
+  .help-equation__term { width: 100%; }
+}
+
+/* Icon tile for "what your support pays for" and "other ways to help". */
+.help-icon {
+  display: grid; place-items: center; width: 44px; height: 44px; flex: none;
+  border-radius: var(--r-md); background: var(--c-primary-soft); color: var(--c-high-text);
+}
+.help-icon svg { width: 22px; height: 22px; }
+.help-ways .card { height: 100%; }
+.help-ways .card__foot .btn { white-space: normal; text-align: center; }
+
+/* Independence: rule list next to the formula. */
+.help-rules { display: grid; gap: var(--sp-4); }
+.help-rules .formula { font-size: 1rem; }
+.help-fineprint { color: var(--c-muted); font-size: 0.875rem; line-height: 1.5; }
+
+/* Closing call to action. */
+.help-final { text-align: center; }
+.help-final h2 { max-width: 32ch; margin-inline: auto; }
+.help-final .lede { margin: var(--sp-4) auto 0; }
+.help-final .btn-row { justify-content: center; margin-top: var(--sp-6); }
+.help-final .help-fineprint { margin-top: var(--sp-4); }

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+# build scripts and the page template are published with the site but are not pages
+Disallow: /tools/
+
+Sitemap: https://dgfbench.com/sitemap.xml
