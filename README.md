@@ -4,7 +4,8 @@ The public website of [DGF-Bench](https://github.com/jeremy1392/DGF-Bench), serv
 **https://dgfbench.com**. DGF-Bench is an open-source, defensive-security benchmark for tool-using LLM agents
 acting as enterprise governance reviewers: a board of agents reviews synthetic project dossiers, an attacker
 plants deceptive content in evidence the organization does not vouch for, and the benchmark measures which
-attacks get through (DGF score = 100 × attacks blocked / attacks applicable).
+attacks get through (DGF score = 100 × attacks blocked / attacks applicable). The paper is on arXiv:
+[arXiv:2609.34913](https://arxiv.org/abs/2609.34913).
 
 The site is plain static HTML, CSS and JavaScript: no build step, no framework, and no external requests
 (no CDN, web fonts or analytics). The one exception is the Ko-fi support button, a floating widget
@@ -20,7 +21,7 @@ directly from disk.
 | `attacks.html` | the 29 attacks: threat model, the four families, one card per attack with its results |
 | `results.html` | the September 2026 results: leaderboard, score bars, attack × model matrix, findings, outcome-strict under attack, corrections, downloads |
 | `get-started.html` | install, first run, outputs, reading the report, submitting a score (`#submit`), other commands |
-| `about.html` | what DGF-Bench is, creator (`#creator`), contact, citation, license, releases, responsible use |
+| `about.html` | what DGF-Bench is, creator (`#creator`), contact, citation (`#cite`: the paper, then the software), license, releases, responsible use |
 | `help.html` | "Help us": support for rating more models (Ko-fi, https://ko-fi.com/dgfbench) and other ways to help |
 | `404.html` | page served by GitHub Pages for any missing path (uses root-absolute links, `noindex`) |
 | `assets/css/site.css` | design system and component library (tokens: dark default, light theme; print styles) |

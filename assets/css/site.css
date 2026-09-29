@@ -358,7 +358,7 @@ code, kbd, samp, pre { font-family: var(--font-mono); font-size: 0.9em; font-var
   .site-nav .site-nav__ext { padding-left: var(--sp-3); border-left: 1px solid var(--c-line); }  /* beats .site-nav ul */
   .site-nav__ext a { padding-inline: 8px; }
 }
-/* Narrow desktop: GitHub and PyPI become icon links (their names stay available to screen readers). */
+/* Narrow desktop: Paper, GitHub and PyPI become icon links (their names stay available to screen readers). */
 @media (min-width: 960px) and (max-width: 1099px) {
   .site-nav__ext a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
@@ -376,10 +376,10 @@ code, kbd, samp, pre { font-family: var(--font-mono); font-size: 0.9em; font-var
   .js .site-header[data-nav-open] .site-nav { box-shadow: 0 0 0 100vmax rgba(4, 9, 16, 0.55); clip-path: inset(0 -100vmax -100vmax -100vmax); }
   .site-nav__list, .site-nav__ext { flex-direction: column; align-items: stretch; gap: 0; }
   /* .site-nav .site-nav__ext beats the .site-nav ul reset, so the separator keeps its spacing */
-  .site-nav .site-nav__ext { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--c-line); flex-direction: row; gap: var(--sp-2); }
+  .site-nav .site-nav__ext { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--c-line); flex-direction: row; flex-wrap: wrap; gap: var(--sp-2); }
   .site-nav a { padding: 12px; font-size: 1rem; }
   .site-nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--c-primary); }
-  /* the "Help us" button keeps some air above the separator of the GitHub and PyPI links */
+  /* the "Help us" button keeps some air above the separator of the Paper, GitHub and PyPI links */
   .site-nav__list .btn { margin-top: var(--sp-2); justify-content: flex-start; }
   /* Without JavaScript the menu is shown inline under the bar. */
   .no-js .site-nav { display: block; position: static; box-shadow: none; border: 0; padding: 0 0 var(--sp-3); }
