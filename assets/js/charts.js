@@ -74,8 +74,11 @@
   }
   function attackHrefFor(opts) {
     if (typeof opts.attackHref === "function") return opts.attackHref;
-    var tpl = opts.attackHref == null ? "attacks.html#attack-{slug}" : opts.attackHref;
-    return function (a) { return tpl ? tpl.replace("{slug}", a.slug).replace("{id}", a.id) : null; };
+    /* {page}: the file name of the attack's own page, attack/<page>.html (the slug with "-" for "_") */
+    var tpl = opts.attackHref == null ? "attack/{page}.html" : opts.attackHref;
+    return function (a) {
+      return tpl ? tpl.replace("{slug}", a.slug).replace("{page}", a.slug.replace(/_/g, "-")).replace("{id}", a.id) : null;
+    };
   }
 
   /* Shared tooltip ------------------------------------------------------------ */

@@ -84,6 +84,9 @@ code, pre, kbd, samp, .atk-quote { font-variant-ligatures: none; font-feature-se
   font-size: 1rem; font-weight: 750; font-variant-numeric: tabular-nums; letter-spacing: 0;
 }
 .atk-card__title .heading-anchor { font-size: 1rem; }
+/* the name links to the attack's own page (attack/<page>.html) */
+.atk-card__name a { color: var(--c-ink); text-decoration: none; }
+.atk-card__name a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .atk-card__tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 
 /* A card body is: the description (__main), the placement, goal and excerpt (__more, a <details>),

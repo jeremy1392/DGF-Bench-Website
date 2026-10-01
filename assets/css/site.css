@@ -329,7 +329,8 @@ code, kbd, samp, pre { font-family: var(--font-mono); font-size: 0.9em; font-var
   color: var(--c-text-2); font-size: 0.9375rem; font-weight: 550; text-decoration: none;
 }
 .site-nav a:hover { background: var(--c-surface-3); color: var(--c-ink); }
-.site-nav a[aria-current="page"] { color: var(--c-ink); background: var(--c-surface-3); box-shadow: inset 0 -2px 0 var(--c-primary); }
+/* "true" marks the section of a sub-page (Attacks on attack/*.html) */
+.site-nav a[aria-current="page"], .site-nav a[aria-current="true"] { color: var(--c-ink); background: var(--c-surface-3); box-shadow: inset 0 -2px 0 var(--c-primary); }
 .site-nav__ext a { color: var(--c-muted); }
 .site-nav__ext svg { width: 18px; height: 18px; }
 .header-actions { display: flex; align-items: center; gap: var(--sp-1); flex: none; }
@@ -378,7 +379,7 @@ code, kbd, samp, pre { font-family: var(--font-mono); font-size: 0.9em; font-var
   /* .site-nav .site-nav__ext beats the .site-nav ul reset, so the separator keeps its spacing */
   .site-nav .site-nav__ext { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--c-line); flex-direction: row; flex-wrap: wrap; gap: var(--sp-2); }
   .site-nav a { padding: 12px; font-size: 1rem; }
-  .site-nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--c-primary); }
+  .site-nav a[aria-current="page"], .site-nav a[aria-current="true"] { box-shadow: inset 3px 0 0 var(--c-primary); }
   /* the "Help us" button keeps some air above the separator of the Paper, GitHub and PyPI links */
   .site-nav__list .btn { margin-top: var(--sp-2); justify-content: flex-start; }
   /* Without JavaScript the menu is shown inline under the bar. */
